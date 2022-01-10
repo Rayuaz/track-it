@@ -5,7 +5,7 @@ export default function Calendar({days, weekdays, poops, updatePoops}) {
 
     function addPoop(date, poopCounter) {
 
-        let newPoops = poops.filter(item => item.date != date);
+        let newPoops = poops.filter(item => item.date !== date);
         poopCounter++
 
         updatePoops([...newPoops, {date, poops: poopCounter}]);
