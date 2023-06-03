@@ -2,155 +2,157 @@
 
 body,
 button {
-  font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-  padding: 10px;
+    padding: 10px;
 }
 
 header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
 
-  img {
-    width: 64px;
-  }
+    img {
+        width: 64px;
+    }
 
-  h1 {
-    font-weight: 900;
-    font-size: 2.75rem;
-  }
+    h1 {
+        font-weight: 900;
+        font-size: 2.75rem;
+    }
 }
 
 nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-  margin-bottom: 20px;
-
-  .current-month {
-    min-width: 150px;
-    text-align: center;
-  }
-
-  button {
-    border: none;
-    background: transparent;
     display: flex;
+    justify-content: center;
     align-items: center;
-  }
+    font-size: 1rem;
+    margin-bottom: 20px;
+
+    .current-month {
+        min-width: 150px;
+        text-align: center;
+    }
+
+    button {
+        border: none;
+        background: transparent;
+        display: flex;
+        align-items: center;
+    }
 }
 
 .calendar {
-  .weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, calc((100vw - 80px) / 7));
-    grid-gap: 10px;
+    .weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, calc((100vw - 80px) / 7));
+        grid-gap: 10px;
 
-    height: calc((100vw - 80px) / 7);
+        height: calc((100vw - 80px) / 7);
 
-    li {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-      width: 100%;
+            width: 100%;
+        }
     }
-  }
 
-  .days {
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(7, calc((100vw - 80px) / 7));
-    grid-auto-rows: calc((100vw - 80px) / 7);
+    .days {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(7, calc((100vw - 80px) / 7));
+        grid-auto-rows: calc((100vw - 80px) / 7);
 
-    .day {
-      border: 1px solid #e4e4e4;
-      border-radius: 10px;
-      background: white;
-      box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+        .day {
+            border: 1px solid #e4e4e4;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
 
-      font-weight: 700;
-      font-size: 1.125rem;
+            font-weight: 700;
+            font-size: 1.125rem;
 
-      position: relative;
+            position: relative;
 
-      transition: background 0.15s ease-in-out;
+            transition: background 0.15s ease-in-out;
 
-      &.padding {
-        visibility: hidden;
-      }
+            user-select: none;
 
-      &.hasPoop {
-        border-color: rgb(138, 111, 83);
-        background: rgb(179, 140, 99);
-        border-width: 2px;
-        color: white;
-      }
+            &.padding {
+                visibility: hidden;
+            }
 
-      &.currentDay {
-        border-color: #74a165;
-        background: #89c275;
-        color: white;
-        border-width: 2px;
-      }
+            &.hasPoop {
+                border-color: rgb(138, 111, 83);
+                background: rgb(179, 140, 99);
+                border-width: 2px;
+                color: white;
+            }
 
-      .poopIcon {
-        position: absolute;
-        bottom: -1px;
-        right: -2px;
+            &.currentDay {
+                border-color: #74a165;
+                background: #89c275;
+                color: white;
+                border-width: 2px;
+            }
 
-        height: 19px;
-        z-index: 2;
+            .poopIcon {
+                position: absolute;
+                bottom: -1px;
+                right: -2px;
 
-        opacity: 0;
-        transform: scale(0.1);
+                height: 19px;
+                z-index: 2;
 
-        transition: all 0.15s cubic-bezier(0.42, 0, 0, 2.74);
+                opacity: 0;
+                transform: scale(0.1);
 
-        &.hasPoop {
-          opacity: 1;
-          transform: scale(1);
+                transition: all 0.15s cubic-bezier(0.42, 0, 0, 2.74);
+
+                &.hasPoop {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                img {
+                    width: 20px;
+                }
+
+                .poopBadge {
+                    position: absolute;
+                    top: -4px;
+                    right: -4px;
+                    z-index: -1;
+
+                    display: block;
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+
+                    background: #eb5757;
+
+                    font-size: 10px;
+                    font-weight: 300;
+                    color: white;
+
+                    opacity: 0;
+                    transform: scale(0.1);
+
+                    transition: all 0.15s cubic-bezier(0.42, 0, 0, 2.74);
+
+                    &.manyPoop {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+            }
         }
-
-        img {
-          width: 20px;
-        }
-
-        .poopBadge {
-          position: absolute;
-          top: -4px;
-          right: -4px;
-          z-index: -1;
-
-          display: block;
-          width: 15px;
-          height: 15px;
-          border-radius: 50%;
-
-          background: #eb5757;
-
-          font-size: 10px;
-          font-weight: 300;
-          color: white;
-
-          opacity: 0;
-          transform: scale(0.1);
-
-          transition: all 0.15s cubic-bezier(0.42, 0, 0, 2.74);
-
-          &.manyPoop {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-      }
     }
-  }
 }
