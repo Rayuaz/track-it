@@ -1,5 +1,10 @@
 @import "reset";
 
+body {
+    max-width: 700px;
+    margin: auto;
+}
+
 body,
 button {
     font-family: "Poppins", sans-serif;
@@ -50,25 +55,23 @@ nav {
 .calendar {
     .weekdays {
         display: grid;
-        grid-template-columns: repeat(7, calc((100vw - 80px) / 7));
+        grid-template-columns: repeat(7, calc((100% - 80px) / 7));
         grid-gap: 10px;
-
-        height: calc((100vw - 80px) / 7);
 
         li {
             display: flex;
             align-items: center;
             justify-content: center;
 
-            width: 100%;
+            aspect-ratio: 1 / 1;
         }
     }
 
     .days {
         display: grid;
         grid-gap: 10px;
-        grid-template-columns: repeat(7, calc((100vw - 80px) / 7));
-        grid-auto-rows: calc((100vw - 80px) / 7);
+        grid-template-columns: repeat(7, calc((100% - 80px) / 7));
+        width: 100%;
 
         .day {
             border: 1px solid #e4e4e4;
@@ -84,6 +87,8 @@ nav {
             transition: background 0.15s ease-in-out;
 
             user-select: none;
+
+            aspect-ratio: 1 / 1;
 
             &.padding {
                 visibility: hidden;
@@ -153,6 +158,32 @@ nav {
                     }
                 }
             }
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .calendar .days .day {
+        &:hover {
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        &.hasPoop:hover {
+            background: #8a6f53;
+        }
+
+        &.currentDay:hover {
+            background: #74a165;
+        }
+    }
+
+    nav button {
+        transition: all 0.12s;
+
+        &:hover {
+            cursor: pointer;
+            opacity: 0.5;
         }
     }
 }
