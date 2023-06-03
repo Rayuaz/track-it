@@ -55,7 +55,7 @@ nav {
 .calendar {
     .weekdays {
         display: grid;
-        grid-template-columns: repeat(7, calc((100% - 80px) / 7));
+        grid-template-columns: repeat(7, calc((100% - 60px) / 7));
         grid-gap: 10px;
 
         li {
@@ -70,7 +70,7 @@ nav {
     .days {
         display: grid;
         grid-gap: 10px;
-        grid-template-columns: repeat(7, calc((100% - 80px) / 7));
+        grid-template-columns: repeat(7, calc((100% - 60px) / 7));
         width: 100%;
 
         .day {
@@ -120,6 +120,8 @@ nav {
                 transform: scale(0.1);
 
                 transition: all 0.15s cubic-bezier(0.42, 0, 0, 2.74);
+
+                pointer-events: none;
 
                 &.hasPoop {
                     opacity: 1;
