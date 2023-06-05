@@ -22,7 +22,7 @@ const Day = ({ day, addTrackedItem, removeTrackedItem }) => {
 
     const defaultOptions = {
         shouldPreventDefault: true,
-        delay: 500,
+        delay: 300,
     };
     const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
 
