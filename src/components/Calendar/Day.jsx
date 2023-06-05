@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import useLongPress from "../../hooks/useLongPress";
 import { Emoji } from "emoji-picker-react";
-import { ConfigContext } from "../../../App";
+import { ConfigContext } from "../../App";
 
 const Day = ({ day, addTrackedItem, removeTrackedItem }) => {
     const configContext = useContext(ConfigContext);
