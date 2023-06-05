@@ -1,25 +1,42 @@
-import React, { useState, useEffect } from "react";
-import Calendar from "./calendar";
-import Header from "./header";
+import React, { useState, useEffect, createContext } from "react";
+import Calendar from "./components/Calendar";
+import Header from "./components/Header";
+import ConfigDialog from "./components/ConfigDialog";
+
+export const ConfigContext = createContext();
 
 export default function App() {
-    const [nav, setNav] = useState(0);
+    const [activeMonth, setActiveMonth] = useState(0);
     const [days, setDays] = useState([]);
     const [dateDisplay, setDateDisplay] = useState("");
-    const [poops, setPoops] = useState(localStorage.getItem("poops") ? JSON.parse(localStorage.getItem("poops")) : []);
+    const [trackedItems, setTrackedItems] = useState(
+        localStorage.getItem("trackedItems") ? JSON.parse(localStorage.getItem("trackedItems")) : []
+    );
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const [appEmoji, setAppEmoji] = useState(localStorage.getItem("emoji") || "1f3af");
+    const [appTitle, setAppTitle] = useState(localStorage.getItem("title") || "");
+    const [hasConfig, setHasConfig] = useState(localStorage.getItem("hasConfig") || false);
 
-    const poopsOnDate = (date) => (poops.find((e) => e.date === date) ? poops.find((e) => e.date === date).poops : 0);
+    const trackedItemsOnDate = (date) =>
+        trackedItems.find((e) => e.date === date) ? trackedItems.find((e) => e.date === date).trackedItems : 0;
 
     useEffect(() => {
-        localStorage.setItem("poops", JSON.stringify(poops));
-    }, [poops]);
+        if (!hasConfig) {
+            openConfig();
+            setHasConfig("true");
+            localStorage.setItem("hasConfig", "true");
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("trackedItems", JSON.stringify(trackedItems));
+    }, [trackedItems]);
 
     useEffect(() => {
         const date = new Date();
 
-        if (nav !== 0) {
-            date.setMonth(new Date().getMonth() + nav);
+        if (activeMonth !== 0) {
+            date.setMonth(new Date().getMonth() + activeMonth);
         }
 
         const day = date.getDate();
@@ -48,14 +65,14 @@ export default function App() {
             if (i > paddingDays) {
                 daysArr.push({
                     value: i - paddingDays,
-                    poop: poopsOnDate(dayString),
-                    isCurrentDay: i - paddingDays === day && nav === 0,
+                    trackedItem: trackedItemsOnDate(dayString),
+                    isCurrentDay: i - paddingDays === day && activeMonth === 0,
                     date: dayString,
                 });
             } else {
                 daysArr.push({
                     value: "padding",
-                    poop: null,
+                    trackedItem: null,
                     isCurrentDay: false,
                     date: "",
                 });
@@ -63,12 +80,36 @@ export default function App() {
         }
 
         setDays(daysArr);
-    }, [poops, nav]);
+    }, [trackedItems, activeMonth]);
+
+    function openConfig() {
+        document.querySelector("#config").showModal();
+    }
 
     return (
-        <>
-            <Header dateDisplay={dateDisplay} onNext={() => setNav(nav + 1)} onBack={() => setNav(nav - 1)} />
-            <Calendar days={days} weekdays={weekdays} poops={poops} updatePoops={setPoops} />
-        </>
+        <ConfigContext.Provider value={{ appEmoji, appTitle, setAppEmoji, setAppTitle }}>
+            <Header
+                openConfig={openConfig}
+                dateDisplay={dateDisplay}
+                onNext={() => setActiveMonth(activeMonth + 1)}
+                onBack={() => setActiveMonth(activeMonth - 1)}
+                appTitle={appTitle}
+                appEmoji={appEmoji}
+            />
+            <Calendar
+                days={days}
+                weekdays={weekdays}
+                trackedItems={trackedItems}
+                updateTrackedItems={setTrackedItems}
+            />
+            <div className="instructions">
+                <p>How to use:</p>
+                <ul>
+                    <li>Tap to add</li>
+                    <li>Tap and hold to subtract</li>
+                </ul>
+            </div>
+            <ConfigDialog />
+        </ConfigContext.Provider>
     );
 }
