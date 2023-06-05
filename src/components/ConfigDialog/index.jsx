@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import EmojiPicker, { Emoji } from "emoji-picker-react";
-import { ConfigContext } from "../../App";
+import { ConfigContext } from "../../../App";
 
 const ConfigDialog = () => {
     const configContext = useContext(ConfigContext);
